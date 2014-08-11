@@ -1,3 +1,5 @@
+# encoding: UTF-8#
+#
 # Temporary way of loading in the mysql schema
 
 bash 'mon_schema' do
@@ -10,5 +12,5 @@ cookbook_file '/var/lib/mysql/mon.sql' do
   owner 'root'
   group 'root'
   source 'mysql/mon.sql'
-  notifies :run, "bash[mon_schema]"
+  notifies :run, 'bash[mon_schema]'
 end
