@@ -15,10 +15,9 @@ CREATE TABLE MonMetrics.Definitions(
     name VARCHAR(255) NOT NULL,
     tenant_id VARCHAR(255) NOT NULL,
     region VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP NOT NULL,
     PRIMARY KEY(id),
     CONSTRAINT MetricsDefinitionsConstraint UNIQUE(name, tenant_id, region)
-) PARTITION BY EXTRACT('year' FROM created_at)*10000 + EXTRACT('month' FROM created_at)*100 + EXTRACT('day' FROM created_at);
+);
 
 CREATE TABLE MonMetrics.Dimensions (
     dimension_set_id BINARY(20) NOT NULL,
@@ -60,15 +59,13 @@ CREATE PROJECTION Definitions_DBD_2_rep_MonMetrics /*+createtype(D)*/
  id ENCODING RLE, 
  name ENCODING AUTO,
  tenant_id ENCODING RLE, 
- region ENCODING RLE,
- created_at ENCODING DELTAVAL
+ region ENCODING RLE
 )
 AS
  SELECT id, 
         name, 
         tenant_id, 
-        region,
-        created_at
+        region
  FROM MonMetrics.Definitions 
  ORDER BY id,
           tenant_id,
