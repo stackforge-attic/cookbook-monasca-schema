@@ -1,0 +1,8 @@
+Verified+2: Jenkins
+Code-Review+2: Craig Bryant <craig.bryant@hp.com>
+Workflow+1: Craig Bryant <craig.bryant@hp.com>
+Submitted-by: Jenkins
+Submitted-at: Fri, 15 Aug 2014 18:15:23 +0000
+Reviewed-on: https://review.openstack.org/114607
+Project: stackforge/cookbook-monasca-schema
+Branch: refs/heads/master
