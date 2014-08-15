@@ -1,0 +1,8 @@
+Verified+2: Jenkins
+Code-Review+2: Tim Kuhlman <tim.kuhlman@hp.com>
+Workflow+1: Tim Kuhlman <tim.kuhlman@hp.com>
+Submitted-by: Jenkins
+Submitted-at: Fri, 15 Aug 2014 17:17:08 +0000
+Reviewed-on: https://review.openstack.org/113306
+Project: stackforge/cookbook-monasca-schema
+Branch: refs/heads/master
