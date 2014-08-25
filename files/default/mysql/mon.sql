@@ -77,10 +77,17 @@ CREATE TABLE `schema_migrations` (
 
 CREATE USER 'notification'@'%' IDENTIFIED BY 'password';
 GRANT SELECT ON mon.* TO 'notification'@'%';
+CREATE USER 'notification'@'localhost' IDENTIFIED BY 'password';
+GRANT SELECT ON mon.* TO 'notification'@'localhost';
 
 CREATE USER 'monapi'@'%' IDENTIFIED BY 'password';
 GRANT ALL ON mon.* TO 'monapi'@'%';
+CREATE USER 'monapi'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL ON mon.* TO 'monapi'@'localhost';
 
 CREATE USER 'thresh'@'%' IDENTIFIED BY 'password';
 GRANT ALL ON mon.* TO 'thresh'@'%';
+CREATE USER 'thresh'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL ON mon.* TO 'thresh'@'localhost';
+
 SET foreign_key_checks = 1;
