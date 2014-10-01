@@ -66,12 +66,26 @@ CREATE TABLE `metric_definition_dimensions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+/*
+ * mysql limits the size of a unique key to 767 bytes. The utf8mb4 charset requires
+ * 4 bytes to be allocated for each character while the utf8 charset requires 3 bytes.
+ * The utf8 charset should be sufficient for any reasonable characters, see the definition
+ * of supplementary characters for what it doesn't support.
+ * Even with utf8, the unique key length would be 785 bytes so only a subset of the
+ * name is used. Potentially the size of the name should be limited to 250 characters
+ * which would resolve this issue.
+ *
+ * The unique key is required to allow high performance inserts without doing a select by using
+ * the "insert into metric_dimension ... on duplicate key update dimension_set_id=dimension_set_id
+ * syntax
+ */
 DROP TABLE IF EXISTS `metric_dimension`;
 CREATE TABLE `metric_dimension` (
   `dimension_set_id` binary(20) NOT NULL DEFAULT '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0',
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `value` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='PRIMARY KEY (`id`)';
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `value` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+   UNIQUE KEY `metric_dimension_key` (`dimension_set_id`,`name`(252))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='PRIMARY KEY (`id`)';
 
 DROP TABLE IF EXISTS `notification_method`;
 CREATE TABLE `notification_method` (
