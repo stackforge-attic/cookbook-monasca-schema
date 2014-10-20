@@ -119,9 +119,8 @@ CREATE TABLE `sub_alarm_definition` (
 DROP TABLE IF EXISTS `sub_alarm_definition_dimension`;
 CREATE TABLE `sub_alarm_definition_dimension` (
   `sub_alarm_definition_id` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `dimension_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `value` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`sub_alarm_definition_id`,`dimension_name`),
+  `dimension_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `value` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   CONSTRAINT `fk_sub_alarm_definition_dimension` FOREIGN KEY (`sub_alarm_definition_id`) REFERENCES `sub_alarm_definition` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -129,12 +128,15 @@ DROP TABLE IF EXISTS `sub_alarm`;
 CREATE TABLE `sub_alarm` (
   `id` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL,
   `alarm_id` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `sub_expression_id` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `expression` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_sub_alarm` (`alarm_id`),
-  CONSTRAINT `fk_sub_alarm` FOREIGN KEY (`alarm_id`) REFERENCES `alarm` (`id`) ON DELETE CASCADE
+  KEY `fk_sub_alarm_expr` (`sub_expression_id`),
+  CONSTRAINT `fk_sub_alarm` FOREIGN KEY (`alarm_id`) REFERENCES `alarm` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_sub_alarm_expr` FOREIGN KEY (`sub_expression_id`) REFERENCES `sub_alarm_definition` (`id`)
 );
 
 DROP TABLE IF EXISTS `schema_migrations`;
