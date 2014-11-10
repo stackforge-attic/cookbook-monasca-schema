@@ -46,7 +46,8 @@ DROP TABLE IF EXISTS `alarm_metric`;
 CREATE TABLE `alarm_metric` (
   `alarm_id` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL,
   `metric_definition_dimensions_id` binary(20) NOT NULL DEFAULT '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0',
-  PRIMARY KEY (`alarm_id`,`metric_definition_dimensions_id`)
+  PRIMARY KEY (`alarm_id`,`metric_definition_dimensions_id`),
+  CONSTRAINT `fk_alarm` FOREIGN KEY (`alarm_id`) REFERENCES `alarm` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `metric_definition`;
