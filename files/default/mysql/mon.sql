@@ -93,7 +93,7 @@ CREATE TABLE `notification_method` (
   `id` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tenant_id` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `type` enum('EMAIL','SMS', 'WEBHOOK') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` enum('EMAIL','SMS', 'WEBHOOK', 'PAGERDUTY') COLLATE utf8mb4_unicode_ci NOT NULL,
   `address` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
